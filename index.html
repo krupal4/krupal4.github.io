@@ -1,60 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krupal Vasani — Software Engineer</title>
+  <meta name="description" content="Software Engineer with 3+ years of experience building scalable backend systems and distributed microservices." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+    :root {
+      --bg: #faf9f7;
+      --ink: #1a1a18;
+      --muted: #6b6b66;
+      --rule: #d8d5ce;
+      --accent: #2a52a4;
+      --font-serif: 'EB Garamond', Georgia, serif;
+      --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+      --max: 680px;
+      --gap: clamp(2rem, 5vw, 3.5rem);
+    }
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      line-height: 1.7;
+      padding: var(--gap) clamp(1.25rem, 6vw, 2.5rem);
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+    }
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    .wrap {
+      max-width: var(--max);
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+    }
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="portfolio">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    /* ── Header ── */
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
 
-  <!-- Favicon -->
-  <!-- <link rel="icon" type="image/png" href="favicon.png"/> -->
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    /* Name */
+    header h1 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
 
-  <title>portfolio</title>
-  <link rel="manifest" href="manifest.json">
+    /* Role: fade + tracking collapse */
+    header .role {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1.05em;
+      opacity: 0;
+      letter-spacing: 0.25em;
+      animation: role-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+    }
 
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = '1727256795';
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+    @keyframes role-in {
+      from { opacity: 0; letter-spacing: 0.25em; }
+      to   { opacity: 1; letter-spacing: 0em; }
+    }
+
+    /* Nav: each link slides up in sequence */
+    nav {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(6px);
+      animation: nav-in 0.5s ease forwards;
+    }
+
+    nav a:nth-child(1) { animation-delay: 1.6s; }
+    nav a:nth-child(2) { animation-delay: 1.75s; }
+    nav a:nth-child(3) { animation-delay: 1.9s; }
+
+    @keyframes nav-in {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    nav a:hover, nav a:focus-visible { border-bottom-color: var(--accent); outline: none; }
+
+    /* ── Footer ── */
+    footer {
+      padding-top: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      position: relative;
+      opacity: 0;
+      animation: fade-up 0.5s ease 2.1s forwards;
+    }
+
+    /* Ruled line draws left to right */
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      height: 1px;
+      width: 0;
+      background: var(--rule);
+      animation: rule-draw 0.7s cubic-bezier(0.4, 0, 0.2, 1) 2s forwards;
+    }
+
+    @keyframes rule-draw {
+      to { width: 100%; }
+    }
+
+    @keyframes fade-up {
+      to { opacity: 1; }
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    footer a:hover, footer a:focus-visible { color: var(--accent); border-color: var(--accent); outline: none; }
+
+    /* ── Focus styles ── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* Respect reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      header .role, nav a, footer {
+        opacity: 1;
+        letter-spacing: normal;
+        transform: none;
+        animation: none;
+      }
+      footer::before { width: 100%; animation: none; }
+    }
+  </style>
 </head>
 <body>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        }
-      }).then(function(engineInitializer) {
-        return engineInitializer.initializeEngine();
-      }).then(function(appRunner) {
-        return appRunner.runApp();
-      });
-    });
-  </script>
+  <div class="wrap">
+
+    <header>
+      <h1>Krupal Vasani</h1>
+      <p class="role">Software Engineer</p>
+      <nav aria-label="Contact and profiles">
+        <a href="mailto:krupalvasani222@gmail.com">krupalvasani222@gmail.com</a>
+        <a href="https://github.com/krupal4" target="_blank" rel="noopener">github.com/krupal4</a>
+        <a href="https://linkedin.com/in/krupal4" target="_blank" rel="noopener">linkedin.com/in/krupal4</a>
+      </nav>
+    </header>
+
+    <footer>
+      <span>Krupal Vasani</span>
+      <a href="mailto:krupalvasani222@gmail.com">krupalvasani222@gmail.com</a>
+    </footer>
+
+  </div>
 </body>
 </html>
